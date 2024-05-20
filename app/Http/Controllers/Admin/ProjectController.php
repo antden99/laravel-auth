@@ -24,15 +24,26 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProjectRequest $request)
+    public function store(StoreProjectRequest $request) //quando invii il form, ricordati di andare nella cartella Request e autorizzare cambiando da false a true, altrimenti non funzionerà
     {
-        //
+        //dd($request->all()); //ricorda all() 
+
+        //per create, ricorda ri aggiungere le $fillable nel modello Project
+
+        //valida 
+        $val_date=$request->all();
+
+        //crea
+        Project::create($val_date); //con create creo una nuova istanza di project e la salvo direttamente nel db ma ricorda le $fillable
+
+        //redirect
+        return to_route('admin.projects.index');
     }
 
     /**

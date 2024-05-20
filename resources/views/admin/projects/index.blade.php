@@ -4,7 +4,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <a href="#" class="p-4"><button class="btn btn-primary">Add</button></a>
+            <a href="{{route('admin.projects.create')}}" class="p-4"><button class="btn btn-primary">Add Project</button></a>
             <div class="col">
                 <table class="table">
                     <thead>
