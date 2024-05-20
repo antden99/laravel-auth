@@ -24,7 +24,7 @@
                                 <td>{{ $project->start_date }}</td>
                                 <td>{{ $project->end_date }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-dark">
+                                    <a href="{{route('admin.projects.show',$project)}}" class="btn btn-dark">
                                         <i class="fa-regular fa-eye"></i></a>
                                 </td>
                                 <td>
