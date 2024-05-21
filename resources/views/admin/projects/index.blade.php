@@ -4,7 +4,18 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <a href="{{route('admin.projects.create')}}" class="p-4"><button class="btn btn-primary">Add Project</button></a>
+
+            
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show py-4" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+
+            <a href="{{ route('admin.projects.create') }}" class="p-4"><button class="btn btn-primary">Add
+                    Project</button></a>
             <div class="col">
                 <table class="table">
                     <thead>
@@ -24,11 +35,11 @@
                                 <td>{{ $project->start_date }}</td>
                                 <td>{{ $project->end_date }}</td>
                                 <td>
-                                    <a href="{{route('admin.projects.show',$project)}}" class="btn btn-dark">
+                                    <a href="{{ route('admin.projects.show', $project) }}" class="btn btn-dark">
                                         <i class="fa-regular fa-eye"></i></a>
                                 </td>
                                 <td>
-                                    <a href="{{route('admin.projects.edit',$project)}}" class="btn btn-dark">
+                                    <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-dark">
                                         <i class="fa-solid fa-pen-nib"></i></a>
                                 </td>
                                 <td>
@@ -60,7 +71,8 @@
                                                         data-bs-dismiss="modal">
                                                         Cancel <!--Annulla la modale-->
                                                     </button>
-                                                    <form action="#" method="post">
+                                                    <form action="{{ route('admin.projects.destroy', $project) }}"
+                                                        method="post">
                                                         @csrf <!--ricorda di aggiungere sempre il token univoco-->
                                                         @method('DELETE')
                                                         <!--aggiungi sempre method 'delete' per indicare che questo form post è di tipo delete-->
@@ -74,4 +86,4 @@
                                 </td>
                             </tr>
                         @endforeach
-@endsection
+                    @endsection

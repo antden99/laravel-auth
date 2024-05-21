@@ -43,7 +43,7 @@ class ProjectController extends Controller
         Project::create($val_date); //con create creo una nuova istanza di project e la salvo direttamente nel db ma ricorda le $fillable
 
         //redirect
-        return to_route('admin.projects.index');
+        return to_route('admin.projects.index')->with('success', 'Project added successfully');;
     }
 
     /**
@@ -73,7 +73,7 @@ class ProjectController extends Controller
         //1) i dati vengono validati direttamente da UpdatProjectRequest
         $project->update($request->all());
 
-        return to_route('admin.projects.index');
+        return to_route('admin.projects.index')->with('success', 'Project update successfully');
     }
 
     /**
@@ -81,6 +81,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return to_route('admin.projects.index')->with('success', 'Project destory successfully');
     }
 }
