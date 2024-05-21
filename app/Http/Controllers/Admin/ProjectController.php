@@ -37,7 +37,7 @@ class ProjectController extends Controller
         //per create, ricorda ri aggiungere le $fillable nel modello Project
 
         //valida 
-        $val_date=$request->all();
+        $val_date=$request->validated();
 
         //crea
         Project::create($val_date); //con create creo una nuova istanza di project e la salvo direttamente nel db ma ricorda le $fillable
@@ -45,7 +45,7 @@ class ProjectController extends Controller
         //redirect
         return to_route('admin.projects.index')->with('success', 'Project added successfully');;
     }
-
+     
     /**
      * Display the specified resource.
      */
@@ -69,9 +69,9 @@ class ProjectController extends Controller
     {
         //dd($request->all());
         //dd($project);
-
-        //1) i dati vengono validati direttamente da UpdatProjectRequest
-        $project->update($request->all());
+ 
+        $validate = $request->validated();  //ricordati di validare sempre i dati con validated()
+        $project->update($validate);
 
         return to_route('admin.projects.index')->with('success', 'Project update successfully');
     }
