@@ -11,7 +11,7 @@ class UpdateProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'=>'required|min:5|max:20',
+            'description'=>'nullable|max:255',
+            'start_date'=>'required',
+            'end_date'=>'nullable',
         ];
     }
 }

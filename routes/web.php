@@ -30,7 +30,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard'); //qui praticamente sto dicendo che quando c'è /dashboard nell'url il controller gestisce il metodo index e ritorna una pagina, ho tolto '/dashboard' e messo solo '/', perchè in questo modo quando sarò autenticato, con solo admin trovero questa rotta
 
         Route::resource('/projects', ProjectController::class); //adesso questo admin/projects verrà gestito dal controller di Project in index in questo caso
-    });
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

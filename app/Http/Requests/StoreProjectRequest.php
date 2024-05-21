@@ -26,7 +26,6 @@ class StoreProjectRequest extends FormRequest
             'description'=>'nullable|max:255',
             'start_date'=>'required',
             'end_date'=>'nullable',
-
         ];
     }
 }

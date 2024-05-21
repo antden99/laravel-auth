@@ -28,7 +28,7 @@
                                         <i class="fa-regular fa-eye"></i></a>
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-dark">
+                                    <a href="{{route('admin.projects.edit',$project)}}" class="btn btn-dark">
                                         <i class="fa-solid fa-pen-nib"></i></a>
                                 </td>
                                 <td>
