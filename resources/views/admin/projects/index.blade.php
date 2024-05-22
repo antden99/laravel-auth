@@ -21,6 +21,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>COVER_IMAGE</th>
                             <th>NAME</th>
                             <th>START_DATE</th>
                             <th>END_DATE</th>
@@ -31,6 +32,7 @@
                             <tr>
 
                                 <td>{{ $project->id }}</td>
+                                <td><img src="{{$project->cover_image}}" alt=""></td>
                                 <td>{{ $project->name }}</td>
                                 <td>{{ $project->start_date }}</td>
                                 <td>{{ $project->end_date }}</td>
