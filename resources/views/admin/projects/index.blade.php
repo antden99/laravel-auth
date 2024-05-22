@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
 
-            
+
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show py-4" role="alert">
                     {{ session('success') }}
@@ -32,7 +32,16 @@
                             <tr>
 
                                 <td>{{ $project->id }}</td>
-                                <td><img src="{{$project->cover_image}}" alt=""></td>
+                                <td>
+                                    <!--Ricordati di aggiungere questo script per controllare se la stringa inizia con https, perchè significa che ha un percorso completo, altrimenti è stata caricata dall'utente-->
+                                    @if (Str::startsWith($project->cover_image, 'https://'))
+                                        <img width="140" loading="lazy" src="{{ $project->cover_image }}"
+                                            alt="{{ $project->name }}">
+                                    @else
+                                        <img width="140" loading="lazy"
+                                            src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->name }}">
+                                    @endif
+                                </td>
                                 <td>{{ $project->name }}</td>
                                 <td>{{ $project->start_date }}</td>
                                 <td>{{ $project->end_date }}</td>

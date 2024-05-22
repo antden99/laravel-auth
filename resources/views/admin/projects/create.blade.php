@@ -14,7 +14,7 @@
         @endif
 
 
-        <form action="{{ route('admin.projects.store') }}" method="POST">
+        <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data"> <!--Non ti dimenticare di aggiungere enctype se devi permettere il caricamento dell'immagine nel form-->
             @csrf
 
 
@@ -29,6 +29,18 @@
                     </div>
                 @enderror
             </div>
+
+            <div class="mb-3">
+                <label for="cover_image" class="form-label">Cover_image</label>
+                <input type="file" name="cover_image" id="cover_imageHelpId">
+                <small id="cover_imageHelpId" class="form-text text-muted">Type a cover_image for this project</small>
+                @error('cover_image')
+                    <div class="text-danger py-3">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>

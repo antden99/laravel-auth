@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -38,8 +39,13 @@ class ProjectController extends Controller
 
         //valida 
         $val_date=$request->validated();
+        //dd($val_date);
+        $img_path=Storage::put('uploads',$val_date['cover_image']);
 
-        //crea
+        //adesso devo sovrascrivere la chiave cover_image, perchè altrimenti non conterrà il percorso corretto, fai dd per controllare(fatto a riga 42)
+        $val_date['cover_image']=$img_path;
+
+        
         Project::create($val_date); //con create creo una nuova istanza di project e la salvo direttamente nel db ma ricorda le $fillable
 
         //redirect
