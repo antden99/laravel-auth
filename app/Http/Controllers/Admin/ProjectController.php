@@ -90,7 +90,7 @@ class ProjectController extends Controller
 
 
             if ($project->cover_image) { //se project ha conver image, allora vado in store e cancello la cover_image attuale
-                // delete the old image
+                
                 Storage::delete($project->cover_image);
             }
 
@@ -112,6 +112,12 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+
+        if ($project->cover_image) { //se project ha conver image, allora vado in store e cancello la cover_image attuale, perchè altrimenti rimarrebbe il salvataggio di metà percorso nello storage 
+           
+            Storage::delete($project->cover_image);
+        }
+
         $project->delete();
 
         return to_route('admin.projects.index')->with('success', 'Project destory successfully');
