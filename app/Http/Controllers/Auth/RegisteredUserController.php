@@ -36,6 +36,10 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        if (User::count() > 0) {         
+            return to_route('register')->with('error', 'Non è possibile più registrarsi.');
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
