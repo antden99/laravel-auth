@@ -17,7 +17,7 @@ class ProjectController extends Controller
     {
         //dd(Project::all()); //ricordati di definire la rotta adesso in routes
         $projects = Project::all();
-        return view('admin.projects.index',compact('projects'));
+        return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -38,26 +38,33 @@ class ProjectController extends Controller
         //per create, ricorda ri aggiungere le $fillable nel modello Project
 
         //valida 
-        $val_date=$request->validated();
+        $val_date = $request->validated();
         //dd($val_date);
-        $img_path=Storage::put('uploads',$val_date['cover_image']);
 
-        //adesso devo sovrascrivere la chiave cover_image, perchè altrimenti non conterrà il percorso corretto, fai dd per controllare(fatto a riga 42)
-        $val_date['cover_image']=$img_path;
 
-        
+        //se la richiesta ha qusto campo, allora la vado a salvare nello storage e sofrascrivo il dato corretto altrimenti non lo faccio perchè non entro nell'if
+        if ($request->has('cover_image')) {
+
+            $img_path = Storage::put('uploads', $val_date['cover_image']);
+            //dd($val_date, $image_path);
+
+            //adesso devo sovrascrivere la chiave cover_image, perchè altrimenti non conterrà il percorso corretto, fai dd per controllare(fatto a riga 42)
+            $val_date['cover_image'] = $img_path;
+        }
+
+
         Project::create($val_date); //con create creo una nuova istanza di project e la salvo direttamente nel db ma ricorda le $fillable
 
         //redirect
         return to_route('admin.projects.index')->with('success', 'Project added successfully');;
     }
-     
+
     /**
      * Display the specified resource.
      */
     public function show(Project $project)
     {
-        return view('admin.projects.show',compact('project'));
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -65,7 +72,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-       return view('admin.projects.edit',compact('project'));
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -75,8 +82,26 @@ class ProjectController extends Controller
     {
         //dd($request->all());
         //dd($project);
- 
+
         $validate = $request->validated();  //ricordati di validare sempre i dati con validated()
+
+
+        if ($request->has('cover_image')) { //se la richiesta ha cover image allora entra nel ciclo
+
+
+            if ($project->cover_image) { //se project ha conver image, allora vado in store e cancello la cover_image attuale
+                // delete the old image
+                Storage::delete($project->cover_image);
+            }
+
+            $image_path = Storage::put('uploads', $validate['cover_image']); //selvo la nuova cover image in storege
+            //dd($validated, $image_path);
+            $validate['cover_image'] = $image_path;
+        }
+
+
+
+
         $project->update($validate);
 
         return to_route('admin.projects.index')->with('success', 'Project update successfully');
